@@ -1,20 +1,4 @@
-.ifndef ESP32_S
-.set ESP32_S, 1
-
-
-
-/*
- * esp32.S
- *
- *  Created on: Apr 23, 2020
- *      Author: jacob
- */
-
- .include "../src/GPIO.S"
- .include "../src/UART.S"
-
- .set UART0_BASEADDR, 0xE0000000
- .set UART1_BASEADDR, 0xE0001000
+.set UART1_BASEADDR, 0xE0001000
 
  .set GPIO_BASEADDR, 0xE000A000
 
@@ -32,28 +16,6 @@
 
 	# keypad string
 	command: .ascii "0000\r\n\0"
-
-
- # Station Commands
- # Use the STA Commands below (setModeSta to startSend in order) to automate the setup process for the STA.
- # Use the STA Commands below (sendFromSta to sendDataSta in order) to send data to the AP.
- #setModeSta:  .ascii "AT+CWMODE=1\r\n\0"
- #setCWJAP:    .ascii "AT+CWJAP=\"ESP32\",\"\"\r\n\0"                // ssid and pw need to match AP to connect
- #startSend:     .ascii "AT+CIPSTART=\"TCP\",\"192.168.4.1\",80\r\n\0"
- #sendFromSta: .ascii "AT+CIPSEND=4\r\n\0"                                    // Change N to number of bytes
-
- # Do we want to send directional commands? Could do something like this...
- # Can send default commands
- sendForward:  .ascii "4200\0"
- sendBackward: .ascii "4300\0"
- sendRight:       .ascii "4100\0"
- sendLeft:     .ascii "4000\0"
- sendBrake:    .ascii "4400\0"
-
- # this will be the format of a message you receive from WiFi sources into your ESP32
- # where, 0 is the user who sent it, 4 is the number of bytes in the message, and "1234" is the 4-byte message in this example
- # you are interested in extracting the message "1234" from this data array.
- messageReceived: .ascii "+IPD,0,4:1234"
 
  .text
 
