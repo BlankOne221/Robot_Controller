@@ -115,38 +115,6 @@ send_string_UART0:
 	BX lr
 
 
-#recieve_string_UART0:
-	#PUSH {lr}
-
-	#LDR r0, =UART0_BASEADDR
-	# Counter to keep track of which character I am on in the string
-	#MOV r2, #0
-	#MOV r1, #0
-
-	#recieve_string:
-		# Grab our next character in the string
-		#LDR r3, [r0, #0x30]
-		#CMP r3, #0x3A
-		#BNE recieve_string
-		#BEQ recieve_info
-
-	#recieve_info:
-		#CMP r2, #4
-		#BEQ recieve_string_end
-		#LSL r1, #4
-		#LDR r3, [r0, #0x30]
-		#BL convert_hex
-		#ADD r1, r1, r3
-
-		#ADD r2, r2, #1
-		#B recieve_info
-
-	#recieve_string_end:
-	# r1 should have the information
-	#POP {lr}
-	#BX lr
-
-
 	keypad_string:
 	PUSH {LR}
 
