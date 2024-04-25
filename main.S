@@ -18,8 +18,6 @@
 #		   However, still know that if you leave the DHB1 module and the battery connected,
 #		   the motors will spin at full speed prior to programming your board.
 
-.include "../src/RobotMotors.S"
-.include "../src/robomal.S"
 .include "../src/GPIO.S"
 .include "../src/esp32.S"
 .include "../src/UART.S"
@@ -51,15 +49,6 @@ main:
 	MOV r2, #1		@ r2 == row = 1
 	BL setupPMODB 	@ setupPMODB(1, 1);
 
-
-	# Setup Motor 0 (connected to top row of PMODC)
-	LDR r1, =MOTOR_0_BASEADDR
-	BL setup_motor
-
-	# Setup Motor 1 (connected to bottom row of PMODC)
-	LDR r1, =MOTOR_1_BASEADDR
-	BL setup_motor
-
 	# setup station commands
 	BL setup_esp32
 	BL timer
@@ -71,6 +60,8 @@ main:
 
 	# wait for button press here
 	BL button_wait
+
+	#keypad input to select a mode
 
 	# Ready for message
 	LDR r5, =sendFromAP
