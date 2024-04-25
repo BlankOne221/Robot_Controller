@@ -439,38 +439,4 @@ PUSH {LR}
 
 BX LR
 
-
-	#keypad_char:
-	#PUSH {r1,r2,r4,LR}
-
-		# Getting the keypad data from the keypad
-		# setting up seven segment display
-		#BL setupSVNSEG
-
-		#MOV r4, #0
-		#MOV r2, #0
-
-		#number:
-		#CMP r4, #4
-		#BEQ end_number
-
-		#LSL r2, #4
-
-		# This displays the first digit pressed and moves it to correct register for calculator
-		#BL display_keypad
-		#ADD r2, r2, r0
-
-		#ADD r4, r4, #1
-		#B number
-
-		#end_number:
-
-		# r3 has the keypad code
-		#MOV r3, r2
-		#MOV r1, #0
-	    #BL writeSVNSEG
-	    #POP {r1,r2,r4,LR}
-	   # BX LR
-
-
 .endif
